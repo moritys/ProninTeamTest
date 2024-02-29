@@ -45,7 +45,7 @@
 
 **Рекомендуемое время выполнения тестового задания:** 3 дня
 
-**Референс:** ()[https://sluchaem.ru/action/15721-vesennee-loto]
+**Референс:** [https://sluchaem.ru/action/15721-vesennee-loto](https://sluchaem.ru/action/15721-vesennee-loto)
 
 ## Реализованный проект
 
