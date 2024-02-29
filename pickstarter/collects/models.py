@@ -3,15 +3,15 @@ from django.db import models
 
 User = get_user_model()
 
-EVENTS = [
-    'День рождения',
-    'Свадьба',
-    'Свидание',
-    'Подарок',
-    'Бездомным котикам и пёсикам',
-    'Благотворительность',
-    'Другое'
-]
+EVENTS = (
+    ('Birthday', 'День рождения'),
+    ('Wedding', 'Свадьба'),
+    ('Date', 'Свидание'),
+    ('Gift', 'Подарок'),
+    ('Homeless animals', 'Бездомным котикам и пёсикам'),
+    ('Charity', 'Благотворительность'),
+    ('Other', 'Другое')
+)
 
 
 class Collect(models.Model):
@@ -19,8 +19,8 @@ class Collect(models.Model):
         User, on_delete=models.CASCADE, related_name='collects'
     )
     title = models.CharField(max_length=200)
-    event = models.CharField(choices=EVENTS)
-    description = models.TextField()
+    event = models.CharField(max_length=200, choices=EVENTS)
+    description = models.TextField(max_length=10_000)
     # цель сбора: если оставить None, то бесконечная
     goal_sum = models.IntegerField(blank=True, null=True, default=None)
     cover = models.ImageField(upload_to='collects/', null=True, blank=True)
@@ -36,7 +36,8 @@ class Payment(models.Model):
     )
     payment = models.DecimalField(max_digits=10, decimal_places=2)
     collect = models.ForeignKey(
-        Collect, on_delete=models.SET_NULL, related_name='payments'
+        Collect, on_delete=models.SET_NULL, related_name='payments',
+        blank=True, null=True,
     )
     created = models.DateTimeField(
         'Дата платежа', auto_now_add=True, db_index=True
