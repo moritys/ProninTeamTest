@@ -1,9 +1,11 @@
 from django.core.exceptions import PermissionDenied
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 
 from collects.models import Collect, Payment
 
 from rest_framework import viewsets
+from rest_framework.pagination import LimitOffsetPagination
 
 from .serializers import (
     CollectSerializer, CollectListSerializer, PaymentSerializer
@@ -13,6 +15,7 @@ from .serializers import (
 class CollectViewSet(viewsets.ModelViewSet):
     queryset = Collect.objects.all()
     serializer_class = CollectSerializer
+    pagination_class = LimitOffsetPagination
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -35,6 +38,7 @@ class CollectViewSet(viewsets.ModelViewSet):
 
 class PaymentViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentSerializer
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         collect_id = self.kwargs.get('collect_id')
