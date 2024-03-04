@@ -1,6 +1,7 @@
 """Django settings for pickstarter project."""
 
 from pathlib import Path
+import os
 
 from datetime import timedelta
 
@@ -142,3 +143,7 @@ SIMPLE_JWT = {
    'ACCESS_TOKEN_LIFETIME': timedelta(days=10),
    'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+# тестовая отправка писем в файлы
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
