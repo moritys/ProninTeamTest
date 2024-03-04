@@ -1,0 +1,1054 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/v1/collects/:
+    get:
+      operationId: listCollects
+      description: ''
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CollectList'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createCollect
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Collect'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Collect'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Collect'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collect'
+          description: ''
+      tags:
+      - api
+  /api/v1/collects/{id}/:
+    get:
+      operationId: retrieveCollect
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this collect.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collect'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateCollect
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this collect.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Collect'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Collect'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Collect'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collect'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateCollect
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this collect.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Collect'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Collect'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Collect'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collect'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyCollect
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this collect.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/v1/collects/{collect_id}/payments/:
+    get:
+      operationId: listPayments
+      description: ''
+      parameters:
+      - name: collect_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=400&limit=100
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?offset=200&limit=100
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Payment'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createPayment
+      description: ''
+      parameters:
+      - name: collect_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+      tags:
+      - api
+  /api/v1/collects/{collect_id}/payments/{id}/:
+    get:
+      operationId: retrievePayment
+      description: ''
+      parameters:
+      - name: collect_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updatePayment
+      description: ''
+      parameters:
+      - name: collect_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdatePayment
+      description: ''
+      parameters:
+      - name: collect_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyPayment
+      description: ''
+      parameters:
+      - name: collect_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/users/:
+    get:
+      operationId: listUsers
+      description: ''
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreate'
+          description: ''
+      tags:
+      - api
+  /api/users/me/:
+    get:
+      operationId: meUser
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: meUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: meUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: meUser
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/users/{id}/:
+    get:
+      operationId: retrieveUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: "A unique integer value identifying this \u043F\u043E\u043B\u044C\
+          \u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C."
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: "A unique integer value identifying this \u043F\u043E\u043B\u044C\
+          \u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C."
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: "A unique integer value identifying this \u043F\u043E\u043B\u044C\
+          \u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C."
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: "A unique integer value identifying this \u043F\u043E\u043B\u044C\
+          \u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C."
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/users/activation/:
+    post:
+      operationId: activationUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Activation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Activation'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activation'
+          description: ''
+      tags:
+      - api
+  /api/users/resend_activation/:
+    post:
+      operationId: resendActivationUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
+      tags:
+      - api
+  /api/users/reset_password/:
+    post:
+      operationId: resetPasswordUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
+      tags:
+      - api
+  /api/users/reset_password_confirm/:
+    post:
+      operationId: resetPasswordConfirmUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordResetConfirm'
+          description: ''
+      tags:
+      - api
+  /api/users/reset_username/:
+    post:
+      operationId: resetUsernameUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
+      tags:
+      - api
+  /api/users/reset_username_confirm/:
+    post:
+      operationId: resetUsernameConfirmUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsernameResetConfirm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UsernameResetConfirm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UsernameResetConfirm'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsernameResetConfirm'
+          description: ''
+      tags:
+      - api
+  /api/users/set_password/:
+    post:
+      operationId: setPasswordUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetPassword'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SetPassword'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SetPassword'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetPassword'
+          description: ''
+      tags:
+      - api
+  /api/users/set_username/:
+    post:
+      operationId: setUsernameUser
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetUsername'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SetUsername'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SetUsername'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetUsername'
+          description: ''
+      tags:
+      - api
+  /api/token/login/:
+    post:
+      operationId: createTokenCreate
+      description: Use this endpoint to obtain user authentication token.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenCreate'
+          description: ''
+      tags:
+      - api
+  /api/token/logout/:
+    post:
+      operationId: createTokenDestroy
+      description: Use this endpoint to logout user (remove user authentication token).
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    CollectList:
+      type: object
+      properties:
+        author:
+          type: integer
+        title:
+          type: string
+          maxLength: 200
+        goal_sum:
+          type: integer
+          nullable: true
+        end_date:
+          type: string
+          format: date-time
+      required:
+      - author
+      - title
+      - end_date
+    Collect:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 200
+        event:
+          enum:
+          - Birthday
+          - Wedding
+          - Date
+          - Gift
+          - Homeless animals
+          - Charity
+          - Other
+          type: string
+        description:
+          type: string
+          maxLength: 10000
+        goal_sum:
+          type: integer
+          nullable: true
+        current_sum:
+          type: string
+          readOnly: true
+        people_fees:
+          type: string
+          readOnly: true
+        cover:
+          type: string
+          format: binary
+          nullable: true
+        end_date:
+          type: string
+          format: date-time
+      required:
+      - title
+      - event
+      - description
+      - end_date
+    Payment:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        payment:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - payment
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\
+            \u043E\u0435 \u043F\u043E\u043B\u0435. \u041D\u0435 \u0431\u043E\u043B\
+            \u0435\u0435 150 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432. \u0422\
+            \u043E\u043B\u044C\u043A\u043E \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\
+            \u0444\u0440\u044B \u0438 \u0441\u0438\u043C\u0432\u043E\u043B\u044B @/./+/-/_."
+    UserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        username:
+          type: string
+          description: "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\
+            \u043E\u0435 \u043F\u043E\u043B\u0435. \u041D\u0435 \u0431\u043E\u043B\
+            \u0435\u0435 150 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432. \u0422\
+            \u043E\u043B\u044C\u043A\u043E \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\
+            \u0444\u0440\u044B \u0438 \u0441\u0438\u043C\u0432\u043E\u043B\u044B @/./+/-/_."
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - username
+      - password
+    Activation:
+      type: object
+      properties:
+        uid:
+          type: string
+        token:
+          type: string
+      required:
+      - uid
+      - token
+    SendEmailReset:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    PasswordResetConfirm:
+      type: object
+      properties:
+        uid:
+          type: string
+        token:
+          type: string
+        new_password:
+          type: string
+      required:
+      - uid
+      - token
+      - new_password
+    UsernameResetConfirm:
+      type: object
+      properties:
+        new_username:
+          type: string
+          description: "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\
+            \u043E\u0435 \u043F\u043E\u043B\u0435. \u041D\u0435 \u0431\u043E\u043B\
+            \u0435\u0435 150 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432. \u0422\
+            \u043E\u043B\u044C\u043A\u043E \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\
+            \u0444\u0440\u044B \u0438 \u0441\u0438\u043C\u0432\u043E\u043B\u044B @/./+/-/_."
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+      required:
+      - new_username
+    SetPassword:
+      type: object
+      properties:
+        new_password:
+          type: string
+        current_password:
+          type: string
+      required:
+      - new_password
+      - current_password
+    SetUsername:
+      type: object
+      properties:
+        current_password:
+          type: string
+        new_username:
+          type: string
+          description: "\u041E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\
+            \u043E\u0435 \u043F\u043E\u043B\u0435. \u041D\u0435 \u0431\u043E\u043B\
+            \u0435\u0435 150 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432. \u0422\
+            \u043E\u043B\u044C\u043A\u043E \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\
+            \u0444\u0440\u044B \u0438 \u0441\u0438\u043C\u0432\u043E\u043B\u044B @/./+/-/_."
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+      required:
+      - current_password
+      - new_username
+    TokenCreate:
+      type: object
+      properties:
+        password:
+          type: string
+        username:
+          type: string
