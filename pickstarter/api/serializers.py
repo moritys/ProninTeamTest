@@ -19,9 +19,7 @@ class Base64ImageField(serializers.ImageField):
 
 
 class CollectSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault()
-    )
+    author_name = serializers.SerializerMethodField()
     cover = Base64ImageField(required=False, allow_null=True)
     current_sum = serializers.SerializerMethodField()
     people_fees = serializers.SerializerMethodField()
@@ -29,8 +27,8 @@ class CollectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collect
         fields = (
-            'id', 'author', 'title', 'event', 'description', 'goal_sum',
-            'current_sum', 'people_fees', 'cover', 'end_date',
+            'id', 'author_name', 'title', 'event', 'description',
+            'goal_sum', 'current_sum', 'people_fees', 'cover', 'end_date',
         )
 
     def create(self, validated_data):
@@ -46,6 +44,11 @@ class CollectSerializer(serializers.ModelSerializer):
         )
 
         return collect
+
+    def get_author_name(self, obj):
+        if obj.author.first_name or obj.author.last_name:
+            return f'{obj.author.first_name} {obj.author.last_name}'
+        return obj.author.username
 
     def get_current_sum(self, obj):
         payments = obj.payments.all()
@@ -66,13 +69,11 @@ class CollectSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(
-        read_only=True, default=serializers.CurrentUserDefault()
-    )
+    author_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Payment
-        fields = ('id', 'author', 'payment', 'created',)
+        fields = ('id', 'author_name', 'payment', 'created',)
 
     def create(self, validated_data):
         payment = Payment.objects.create(**validated_data)
@@ -85,12 +86,22 @@ class PaymentSerializer(serializers.ModelSerializer):
             # [self.context['request'].user.email],
             fail_silently=True,
         )
-
         return payment
+
+    def get_author_name(self, obj):
+        if obj.author.first_name or obj.author.last_name:
+            return f'{obj.author.first_name} {obj.author.last_name}'
+        return obj.author.username
 
 
 class CollectListSerializer(serializers.ModelSerializer):
+    author_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Collect
-        fields = ('author', 'title', 'goal_sum', 'end_date',)
+        fields = ('author_name', 'title', 'goal_sum', 'end_date',)
+
+    def get_author_name(self, obj):
+        if obj.author.first_name or obj.author.last_name:
+            return f'{obj.author.first_name} {obj.author.last_name}'
+        return obj.author.username
