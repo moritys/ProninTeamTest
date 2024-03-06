@@ -58,11 +58,15 @@
 
 1. Клонировать репозиторий 
 
-```git clone https://github.com/moritys/ProninTeamTest.git```
+```
+git clone https://github.com/moritys/ProninTeamTest.git
+```
 
 2. Запустить контейнер
 
-```(sudo) docker-compose up -d --build```
+```
+(sudo) docker-compose up -d --build
+```
 
 3. Провести миграции внутри контейнера после его запуска
 ```
