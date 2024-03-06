@@ -85,7 +85,7 @@ git clone https://github.com/moritys/ProninTeamTest.git
 
 5. Получить токен через POST запрос на http://localhost/api/token/login/
 
-6. Использовать его при авторизации для всех запросов, кроме GET*
+6. Использовать его при авторизации для всех запросов, кроме GET (для него не нужна авторизация)*
 
  * *например в postman передать в Headers в поле Authorization значение "Token <your_token>"*
 
@@ -105,18 +105,18 @@ git clone https://github.com/moritys/ProninTeamTest.git
 
 ### Основные эндпоинты
 
-###### /api/v1/collects
+###### /api/v1/collects/
 
 - выводит список всех взносов, информация предоставлена кратко
 
-###### /api/v1/collects/<collect_id>
+###### /api/v1/collects/<collect_id>/
 
 - выводит полную информацию о сборе, включая собранную сумму и количество заплативших
 
-###### /api/v1/collects/<collect_id>/payments
+###### /api/v1/collects/<collect_id>/payments/
 
 - выводит список всех платежей по конкретному сбору
 
-###### /api/v1/collects/<collect_id>/payments/<payment_id>
+###### /api/v1/collects/<collect_id>/payments/<payment_id>/
 
 - выводит полную информацию о конкретном платеже на конкретный сбор
