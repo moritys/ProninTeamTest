@@ -51,4 +51,55 @@
 
 ### Технологии
 
+- Django 3.2
+- drf 3.12.4
+
 ### Инструкции
+
+1. Клонировать репозиторий 
+
+`git clone https://github.com/moritys/ProninTeamTest.git`
+
+2. Запустить контейнер
+
+`(sudo) docker-compose up -d --build`
+
+3. Провести миграции внутри контейнера после его запуска
+```
+docker-compose exec web python manage.py migrate 
+docker-compose exec web python manage.py createsuperuser 
+docker-compose exec web python manage.py collectstatic --no-input
+```
+
+4. Создать юзера через POST запрос на http://localhost/api/users/ (локалхост актуален при локальном разворачивании)
+```
+{
+    "username": "admen",
+    "password": "12345678f"
+}
+```
+
+5. Получить токен через POST запрос на http://localhost/api/token/login/
+
+6. Использовать его при авторизации для всех запросов, кроме GET*
+* *например в postman передать в Headers в поле Authorization значение "Token <your_token>"*
+
+7. Готово, апи можно пользоваться. Полное описание эндпоинтов находится в `/pickstarter/static/schema.yaml`
+
+### Основные эндпоинты
+
+###### /api/v1/collects
+
+- выводит список всех взносов, информация предоставлена кратко
+
+###### /api/v1/collects/<collect_id>
+
+- выводит полную информацию о сборе, включая собранную сумму и количество заплативших
+
+###### /api/v1/collects/<collect_id>/payments
+
+- выводит список всех платежей по конкретному сбору
+
+###### /api/v1/collects/<collect_id>/payments/<payment_id>
+
+- выводит полную информацию о конкретном платеже на конкретный сбор
